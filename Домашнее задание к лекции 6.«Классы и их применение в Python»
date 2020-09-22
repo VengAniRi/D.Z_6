@@ -1,0 +1,78 @@
+class Animal():
+    count_of_Types=0
+    count_of_Functions=0
+    count_of_Voices=0
+    Types=['Гусь', 'Корова', 'Овца', 'Курица', 'Коза', 'Утка']
+    Functions=['Собирать яйца', 'Доить', 'Стричь', 'Собирать яйца', 'Доить', 'Собирать яйца']
+    Voices=['Крякает', 'Мычит', 'Блеет', 'Кукарекует', 'Блеет', 'Крякает']
+    def __init__(self, type):
+        self.type=type
+        self.itype=0
+        Animal.count_of_Types = len(Animal.Types)
+        Animal.count_of_Functions = len(Animal.Functions)
+        Animal.count_of_Voices = len(Animal.Voices)
+    @classmethod
+    def types(cls):
+        return cls.count_of_Types
+    @classmethod
+    def functions(cls):
+        return cls.count_of_Functions
+    def itypeOf(self):
+        itype=0
+        for i in range(Animal.count_of_Types):
+            if self.type == Animal.Types[i]:
+                itype=i
+                break
+        self.itype=itype
+        return itype
+    @classmethod
+    def voices(cls):
+        return cls.count_of_Voices
+    def  __rep__ (self):
+        return 'Всего ' + str(self.types()) + ' типов животных, ' + \
+                str(1+self.functions()) + ' видов взаимодействия, ' + \
+                str(self.voices()) + ' форм голосовых сообщений'
+
+class ParticularAnimal(Animal):
+    def __init__(self, type, name, weight):
+        super().__init__(type)
+        self.name=name
+        self.weight=weight
+        self.itype=self.itypeOf()
+    def  __rep__ (self):
+        return 'Животное:: ' + super().Types[self.itype] + ' с именем - ' + \
+                "'" + self.name + "'"+ ' и голосовыми возможностями - ' + \
+                super().Voices[self.itype] + ' требует к себе внимания следующими действиями: ' + \
+                super().Functions[self.itype] + " и Кормить"
+
+lAnimals=[ParticularAnimal("Гусь", "Серый", 6), ParticularAnimal("Гусь", "Белый", 5), \
+ParticularAnimal("Корова", "Манька", 80), ParticularAnimal("Овца", "Барашек", 40), \
+ParticularAnimal("Овца", "Кудрявый", 50),  ParticularAnimal("Курица", "Ко-Ко", 2), \
+ParticularAnimal("Курица", "Кукареку", 3), ParticularAnimal("Коза", "Рога", 35), \
+ParticularAnimal("Коза", "Копыта", 30), ParticularAnimal("Утка", "Кряква", 4)]
+
+for i in range(len(lAnimals)):
+	e=lAnimals[i]
+	print("type=" + str(e.type) + " itype=" + str(e.itype))
+	print("Животное:: " + str(e.Types[e.itype]) + " с именем:: " + e.name + ",")
+	print("           имеющее массу:: " + str(e.weight) + " и ")
+	print("           голосовые возможности:: " + str(e.Voices[e.itype]) + ",")
+	print("           требует к себе внимания следующими действиями::" + \
+str(e.Functions[e.itype]) + " и Кормить")
+
+
+sum=0
+maxWeight=0
+iMax=0
+for i in range(len(lAnimals)):
+	e=lAnimals[i]
+	if i == 0: maxWeight = e.weight
+	else:
+		if maxWeight < e.weight: 
+			maxWeight = e.weight
+			iMax=i
+
+print("!!!!!!!!!! Суммарная масса=" + str(maxWeight))
+print("!!!!!!!!!! Наибольшая масса у объекта::")
+e=lAnimals[iMax]
+e.__rep__()
